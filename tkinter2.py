@@ -204,3 +204,30 @@ Entry(root, textvariable=fisika_var).grid(row=2, column=1, padx=10, pady=5)
 Label(root, text="Nilai Inggris").grid(row=3, column=0, padx=10, pady=5)
 Entry(root, textvariable=inggris_var).grid(row=3, column=1, padx=10, pady=5)
 
+
+# Button submit untuk hasil data
+Button(root, text="Submit", command=submit).grid(row=4, column=0, pady=10)
+# Button update untuk mengupdate data
+Button(root, text="Update", command=update).grid(row=4, column=1, pady=10)
+# Button delete untuk menghapus data
+Button(root, text="Delete", command=delete).grid(row=4, column=2, pady=10)
+
+# Tabel untuk menampilkan data
+columns = ("id", "nama_siswa", "biologi", "fisika", "inggris", "prediksi_fakultas")
+tree = ttk.Treeview(root, columns=columns, show='headings')
+
+# Menampilkan kolom header
+for col in columns:
+    tree.heading(col, text=col.capitalize())
+    tree.column(col, anchor='center')
+    
+# Grid layout untuk tabel
+tree.grid(row=5, column=0, columnspan=3, padx=10, pady=10)
+# Menghubungkan klik pada baris tabel dengan fungsi untuk mengisi form input
+tree.bind('<ButtonRelease-1>', fill_inputs_from_table)
+
+# Mengisi tabel dengan data
+populate_table()
+
+# Menjalankan aplikasi
+root.mainloop()
