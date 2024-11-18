@@ -175,3 +175,32 @@ def fill_inputs_from_table(event):
         inggris_var.set(selected_row[4])
     except IndexError:
         messagebox.showerror("Error", "Pilih data yang valid!")
+
+# Inisialisasi database
+create_database()
+
+# Membuat GUI dengan Tkinter
+root = Tk()
+root.title("Prediksi Fakultas Siswa")
+root.configure(bg="#FFDAB9") # Mengatur latar belakang jendela dengan warna peach 
+
+# Variabel tkinter
+nama_var = StringVar()
+biologi_var = StringVar()
+fisika_var = StringVar()
+inggris_var = StringVar()
+selected_record_id = StringVar()
+
+# Elemen GUI
+Label(root, text="Nama Siswa").grid(row=0, column=0, padx=10, pady=5)
+Entry(root, textvariable=nama_var).grid(row=0, column=1, padx=10, pady=5)
+
+Label(root, text="Nilai Biologi").grid(row=1, column=0, padx=10, pady=5)
+Entry(root, textvariable=biologi_var).grid(row=1, column=1, padx=10, pady=5)
+
+Label(root, text="Nilai Fisika").grid(row=2, column=0, padx=10, pady=5)
+Entry(root, textvariable=fisika_var).grid(row=2, column=1, padx=10, pady=5)
+
+Label(root, text="Nilai Inggris").grid(row=3, column=0, padx=10, pady=5)
+Entry(root, textvariable=inggris_var).grid(row=3, column=1, padx=10, pady=5)
+
