@@ -127,3 +127,51 @@ def update():
     except ValueError as e:
         messagebox.showerror("Error", f"Kesalahan: {e}")
 
+
+# Fungsi untuk menangani tombol delete
+def delete():
+    try:
+        if not selected_record_id.get():
+            raise Exception("Pilih data dari tabel untuk dihapus!")
+
+        record_id = int(selected_record_id.get())
+        delete_database(record_id)
+        messagebox.showinfo("Sukses", "Data berhasil dihapus!")
+        
+        # Mengosongkan input form dan memperbarui tabel
+        clear_inputs()
+        populate_table()
+    except ValueError as e:
+        messagebox.showerror("Error", f"Kesalahan: {e}")
+
+# Fungsi untuk mengosongkan input
+def clear_inputs():
+    nama_var.set("")
+    biologi_var.set("")
+    fisika_var.set("")
+    inggris_var.set("")
+    selected_record_id.set("")
+
+# Fungsi untuk mengisi tabel dengan data dari database
+def populate_table():
+    for row in tree.get_children():
+        tree.delete(row)
+    for row in fetch_data():    #fetch_data()adalah fungsi yang mengambil data dari database
+        tree.insert("", "end", values=row)
+
+# Fungsi untuk mengisi input dengan data dari tabel
+def fill_inputs_from_table(event):
+    try:
+        # Mengambil item yang dipilih dari tabel
+        selected_item = tree.selection()[0]
+        # Mengambil data dari baris yang dipilih
+        selected_row = tree.item(selected_item)['values']
+        
+        # Mengisi input form dengan data yang dipilih
+        selected_record_id.set(selected_row[0])
+        nama_var.set(selected_row[1])
+        biologi_var.set(selected_row[2])
+        fisika_var.set(selected_row[3])
+        inggris_var.set(selected_row[4])
+    except IndexError:
+        messagebox.showerror("Error", "Pilih data yang valid!")
